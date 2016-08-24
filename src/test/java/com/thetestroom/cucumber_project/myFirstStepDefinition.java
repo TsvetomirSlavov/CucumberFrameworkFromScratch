@@ -28,10 +28,10 @@ public class myFirstStepDefinition{
 		driver.navigate().to("http://www.thetestroom.com");
 	}
 	
-	@When("^I navigate to Cucumber Tutorial page$")
-	public void i_navigate_to_Cucumber_Tutorial_page() throws Throwable{
+	@When("^I navigate to \"([^\"]*)\" page$")
+	public void i_navigate_to_Cucumber_Tutorial_page(String link) throws Throwable{
 		System.out.println("Clicking on the cucumber tutorail page");
-		driver.findElement(By.linkText("Java Cucumber Tutorial")).click();		
+		driver.findElement(By.linkText(link)).click();		
 	}
 	
 	@Then("^the page title should be visible$")
@@ -43,13 +43,13 @@ public class myFirstStepDefinition{
 		//Thread sleep works it gives me the correct second title but I need a better solution
 		//Thread.sleep(1000);
 		//This works but we do not have to mix them we have to call again after that the implisitlywait
-		//here nullify implicitly wait
-		driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+		//here nullify implicitly wait No this does not work properly
+		//driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
 		WebDriverWait wait = new WebDriverWait(driver, 15);
 		wait.until(ExpectedConditions.titleContains("Java Cucumber Tutorial - The Test Room"));
 		System.out.println(driver.getTitle());
 		//here restore implicitly wait
-		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+		//driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		driver.quit();
 	}
 	
